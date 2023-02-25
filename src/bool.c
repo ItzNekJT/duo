@@ -9,18 +9,17 @@ const duoT_type duoG_booltype = {
     "bool",             /* tp_name */
     sizeof(duoT_bool),  /* tp_size */
 
-    NULL,               /* tp_attr */
     NULL,               /* tp_call */
 };
 
-const duoT_bool duoG_truebool = {
+const duoT_bool duoG_true = {
     &duoG_booltype, /* bs_type */
     -1,             /* bs_refs */
 
     1,              /* m_data */
 };
 
-const duoT_bool duoG_falsebool = {
+const duoT_bool duoG_false = {
     &duoG_booltype, /* bs_type */
     -1,             /* bs_refs */
 
