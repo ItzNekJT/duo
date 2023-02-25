@@ -2,6 +2,8 @@
 
 #include <duo/base.h>
 
+#define duoC_float_data(_float) (((duoT_float*) (_float))->m_data)
+
 typedef struct duoT_float duoT_float;
 
 struct duoT_float {
