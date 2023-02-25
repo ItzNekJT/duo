@@ -9,7 +9,6 @@ const duoT_type duoG_inttype = {
     "int",             /* tp_name */
     sizeof(duoT_int),  /* tp_size */
 
-    NULL,               /* tp_attr */
     NULL,               /* tp_call */
 };
 
@@ -18,6 +17,8 @@ duoT_int* duoC_int_create(int _data) {
         duoC_alloc(sizeof(duoT_int));
     
     ptr->bs_type = &duoG_inttype;
+    ptr->bs_refs = 0;
+
     ptr->m_data = _data;
 
     return ptr;
