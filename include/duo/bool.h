@@ -4,10 +4,12 @@
 
 #include <stdbool.h>
 
-#define DUO_TRUE  ((duoT_base*) &duoG_truebool)
-#define DUO_FALSE ((duoT_base*) &duoG_falsebool)
+#define DUO_TRUE  (&duoG_true)
+#define DUO_FALSE (&duoG_false)
 
 #define duoC_bool_create(_data) ((_data) ? (DUO_TRUE) : (DUO_FALSE))
+
+#define duoC_bool_data(_bool) (((duoT_bool*) (_bool))->m_data)
 
 typedef struct duoT_bool duoT_bool;
 
@@ -19,5 +21,5 @@ struct duoT_bool {
 
 extern const duoT_type duoG_booltype;
 
-extern const duoT_bool duoG_truebool;
-extern const duoT_bool duoG_falsebool;
+extern const duoT_bool duoG_true;
+extern const duoT_bool duoG_false;
