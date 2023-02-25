@@ -14,8 +14,9 @@ struct duoT_type {
     const char* tp_name;
     size_t tp_size;
 
-    duoT_base* (*tp_attr)(duoT_base* _self, const char* _attr);
     duoT_base* (*tp_call)(duoT_base* _self, duoT_base** _args, size_t _nargs);
 };
 
 extern const duoT_type duoG_typetype;
+
+extern bool duoC_type_before(const duoT_type* _type, const duoT_type* _parent);
