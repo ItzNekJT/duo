@@ -9,7 +9,6 @@ const duoT_type duoG_functiontype = {
     "function",                 /* tp_name */
     sizeof(duoT_function),      /* tp_size */
 
-    NULL,                       /* tp_attr */
     (void*) duoC_function_call, /* tp_call */
 };
 
@@ -19,6 +18,7 @@ duoT_function* duoC_function_create(duoT_base* (*_data)
         duoC_alloc(sizeof(duoT_function));
     
     ptr->bs_type = &duoG_functiontype;
+    ptr->bs_refs = 0;
 
     ptr->m_data = _data;
 
