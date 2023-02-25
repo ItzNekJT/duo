@@ -11,15 +11,14 @@ const duoT_type duoG_tabletype = {
     "table",            /* tp_name */
     sizeof(duoT_table), /* tp_size */
 
-    NULL,               /* tp_attr */
     NULL,               /* tp_call */
 };
 
-duoT_table* duoC_table_create(size_t _size)
-{
+duoT_table* duoC_table_create(size_t _size) {
     duoT_table* ptr = (duoT_table*)
         duoC_alloc(sizeof(duoT_table) + _size*sizeof(__tablenode*));
     
+    ptr->bs_refs = 0;
     ptr->bs_type = &duoG_tabletype;
 
     ptr->m_size = _size;
@@ -38,7 +37,6 @@ void duoC_table_clear(duoT_table* _table) {
 
         while (node) {
             next = node->m_next;
-            duoC_decref(next->m_data);
             duoC_dealloc(node);
             node = next;
         }
@@ -53,9 +51,7 @@ void duoC_table_insert(duoT_table* _table, duoT_base* _data, size_t _hash) {
 
     while (node) {
         if (node->m_hash == _hash) {
-            duoC_decref(node->m_data);
             node->m_data = _data;
-            duoC_incref(_data);
             return;
         }
 
@@ -67,7 +63,6 @@ void duoC_table_insert(duoT_table* _table, duoT_base* _data, size_t _hash) {
         duoC_alloc(sizeof(__tablenode));
 
     node->m_data = _data;
-    duoC_incref(_data);
 
     node->m_hash = _hash;
 
@@ -92,7 +87,6 @@ void duoC_table_erase(duoT_table* _table, size_t _hash) {
                 _table->m_data[index] = node->m_next;
             }
 
-            duoC_decref(node->m_data);
             duoC_dealloc(node);
             return;
         }
