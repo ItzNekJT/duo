@@ -9,7 +9,6 @@ const duoT_type duoG_floattype = {
     "float",             /* tp_name */
     sizeof(duoT_float),  /* tp_size */
 
-    NULL,               /* tp_attr */
     NULL,               /* tp_call */
 };
 
@@ -18,6 +17,8 @@ duoT_float* duoC_float_create(float _data) {
         duoC_alloc(sizeof(duoT_float));
     
     ptr->bs_type = &duoG_floattype;
+    ptr->bs_refs = 0;
+ 
     ptr->m_data = _data;
 
     return ptr;
