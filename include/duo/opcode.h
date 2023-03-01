@@ -1,6 +1,6 @@
 #pragma once
 
-typedef unsigned char DUO_OPCODE;
+#include <stdint.h>
 
 enum {
     DUO_OPCODE_PUSH_IDENT,
