@@ -15,6 +15,4 @@
 
 #include <duo/table.h>
 
-#include <duo/standart.h>
-
-#include <duo/opcode.h>
+#include <duo/std.h>
