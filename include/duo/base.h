@@ -1,10 +1,8 @@
 #pragma once
 
-#include <assert.h>
-
 #include <stddef.h>
-#include <stdbool.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #define DUO_BASE_HEAD \
     const duoT_type* bs_type; \
