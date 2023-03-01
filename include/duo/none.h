@@ -2,9 +2,9 @@
 
 #include <duo/base.h>
 
-#define DUO_NONE ((duoT_base*) &duoG_none)
+#define DUO_NONE_NONE ((duoT_base*) &duoG_none)
 
-#define duoC_none_create() (DUO_NONE)
+#define duoC_none_create() (DUO_NONE_NONE)
 
 typedef struct duoT_none duoT_none;
 
