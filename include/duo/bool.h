@@ -4,7 +4,7 @@
 
 #include <stdbool.h>
 
-#define DUO_BOOL_TRUE  (&duoG_true)
+#define DUO_BOOL_TRUE (&duoG_true)
 #define DUO_BOOL_FALSE (&duoG_false)
 
 #define duoC_bool_create(_data) ((_data) ? (DUO_BOOL_TRUE) : (DUO_BOOL_FALSE))
