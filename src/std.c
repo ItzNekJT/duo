@@ -3,6 +3,15 @@
 #include <string.h>
 #include <stdlib.h>
 
+extern void set_input_string(const char * _string);
+extern void end_lexical_scan();
+extern int yyparse();
+
+extern int yyerrors;
+
+extern uint8_t* yyoutput_data;
+extern size_t yyoutput_size;
+
 void* duoC_alloc(size_t _size) {
     return malloc(_size);
 }
@@ -23,8 +32,8 @@ void duoC_execute(const uint8_t* _code, duoT_table* _scope) {
     duoT_base* stack[256] = {0};
 
     const uint8_t* pc = _code;
-
-    duoT_base** sp = stack - 1;
+    
+    duoT_base** sp = stack;
 
     bool running = true;
 
@@ -57,7 +66,7 @@ void duoC_execute(const uint8_t* _code, duoT_table* _scope) {
                 size_t size = strlen((const char*) pc);
 
                 *++sp = (duoT_base*)
-                    duoC_string_create(pc, size);
+                    duoC_string_create((const char*) pc, size);
                 
                 pc += size + 1;
             } break;
@@ -80,6 +89,30 @@ void duoC_execute(const uint8_t* _code, duoT_table* _scope) {
     }
 }
 
-const uint8_t* duoC_compile(const char* _source) {
-    return NULL;
+uint8_t* duoC_compile(const char* _source) {
+    yyerrors = 0;
+
+    yyoutput_data = NULL;
+    yyoutput_size = 0;
+
+    set_input_string(_source);
+    yyparse();
+    end_lexical_scan();
+
+    if (yyerrors) {
+        return NULL;
+    }
+
+    return yyoutput_data;
+}
+
+size_t duoC_hash(const void* _data, size_t _size) {
+    size_t hash = 0x811c9dc5;
+
+    for (size_t i = 0; i < _size; ++i) {
+        hash ^= ((const char *) _data)[i];
+        hash *= 0x01000193;
+    }
+
+    return hash;
 }
