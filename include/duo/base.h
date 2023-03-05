@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdarg.h>
 
 #define DUO_BASE_HEAD \
     const duoT_type* bs_type; \
