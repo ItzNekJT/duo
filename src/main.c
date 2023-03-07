@@ -1,24 +1,34 @@
 #include <duo.h>
 
 #include <stdio.h>
-#include <stdlib.h>
-
-duoT_base* duoF_print(duoT_base** _args, size_t _nargs) {
-    puts(duoC_string_data(_args[0]));
-    return DUO_NONE_NONE;
-}
 
 int main(int argc, const char** argv) {
+    assert(argc == 2);
 
-    const char source[] = "print(\"Hi DUO!\")";
+    FILE* file = fopen(argv[1], "rb");
+    assert(file != NULL);
 
-    const uint8_t* code = duoC_compile(source);
+    fseek(file, 0, SEEK_END);
+    size_t size = ftell(file);
+    fseek(file, 0, SEEK_SET);
 
-    duoT_table* scope = duoC_table_create(8);
-    duoT_function* print = duoC_function_create(duoF_print);
+    char* data = (char*) duoC_alloc(size + 1);
+    data[size] = 0;
 
-    duoC_table_insert(scope, print, duoC_hash("print", 5));
+    fread(data, 1, size, file);
+    fclose(file);
+
+    uint8_t* code = duoC_compile(data);
+    duoC_dealloc(data);
+
+    if (!code) {
+        return 1;
+    }
+
+    duoT_table* scope = (duoT_table*) duoC_export(NULL);
 
     duoC_execute(code, scope);
-    return EXIT_SUCCESS;
+    duoC_dealloc(code);
+
+    return 0;
 }
