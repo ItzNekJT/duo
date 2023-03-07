@@ -2,6 +2,8 @@
 
 #include <duo/base.h>
 
+#define DUO_RETURN(_base) return (duoT_base*) (_base)
+
 typedef struct duoT_function duoT_function;
 
 struct duoT_function {
