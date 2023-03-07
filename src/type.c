@@ -12,7 +12,7 @@ const duoT_type duoG_typetype = {
     NULL,               /* tp_call */
 };
 
-bool duoC_type_before(const duoT_type* _type, const duoT_type* _parent) {
+bool duoC_type_after(const duoT_type* _type, const duoT_type* _parent) {
     if (_parent == &duoG_basetype) {
         return true;
     }
