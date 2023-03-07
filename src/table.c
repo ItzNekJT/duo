@@ -62,8 +62,8 @@ void duoC_table_insert(duoT_table* _table, duoT_base* _data, size_t _hash) {
     node = (__tablenode*)
         duoC_alloc(sizeof(__tablenode));
 
+    node->m_next = NULL;
     node->m_data = _data;
-
     node->m_hash = _hash;
 
     if (prev) {
