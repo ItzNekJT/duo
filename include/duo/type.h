@@ -19,4 +19,4 @@ struct duoT_type {
 
 extern const duoT_type duoG_typetype;
 
-extern bool duoC_type_before(const duoT_type* _type, const duoT_type* _parent);
+extern bool duoC_type_after(const duoT_type* _type, const duoT_type* _parent);
